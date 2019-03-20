@@ -10,13 +10,11 @@ class User(db.Model):
     """
     class User that represents the user database model
     """
-    __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(20), unique=True)
     password = db.Column(db.String(500))
-   
 
-    def __init__(self, username, password=''):
+    def __init__(self, username, password):
         self.username = username
         self.password = password
 
@@ -27,10 +25,11 @@ class User(db.Model):
         """
         return User.query.all()
 
-    def save(self):
+    def save_user(_username, _password):
         """save function that commits user instance to be saved to the database
         """
-        db.session.add(self)
+        new_user = User(username=_username, password=_password)
+        db.session.add(new_user)
         db.session.commit()
 
     def delete(self):

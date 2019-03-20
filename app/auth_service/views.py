@@ -31,56 +31,24 @@ class RegistrationView(MethodView):
     """document api"""
     @swag_from('swagger_docs/register_user.yaml', methods=['POST'])
     def post(self):
-        try:
-            # Handle POST request for this view. Url ---> /auth/register"""
-            # Query to see if the user already exists
-            post_data = request.get_json(force=True)
-            # check if posted username is already in the database
-            
-            if "username" not in post_data.keys():
-                return make_response(jsonify({"message": "json body must contain username key"})), 500
-            
-            if len(post_data.keys()) > 4:
-                return make_response(jsonify({"message": "too many arguments in json body"})), 500
-            
-            user = User.query.filter_by(username=post_data['username']).first()
-            if not user:
-                # There is no user so we'll try to register new user
-                try:
-                    # Register new user
-                    username = post_data['username']
-                    password = post_data['password']
-                    user = User(username=username, password=password)
-                    if user.is_number(username) == True:
-                        return make_response(jsonify({"message": "username cannot be a numeric value"}))
-                    
-                    if user.validate_user_email(email) == False:
-                        return make_response(jsonify({"message": "invalid email format"}))
-                    else:
-                        user.save()
+        # Handle POST request for this view. Url ---> /auth/register"""
+        # Query to see if the user already exists
+        post_data = request.get_json()
+        username = post_data['username']
+        password = post_data['password']
+           
+        # Register new user
+        if username== True:
+            return make_response(jsonify({"message": "username cannot be a numeric value"}))
+    
+        else:
+            User.save_user(username, password)
+            response = {
+                'message': 'User registered successfully.'
+            }
 
-                        response = {
-                            'message': 'User registered successfully.'
-                        }
-                        # return user registered successfully message
-                        return make_response(jsonify(response)), 201
-                except Exception as ex:
-                    # Return error message
-                    response = {
-                        'message': "Bad data! Missing parameters in in json body"
-                    }
-                    return make_response(jsonify(response)), 401
-            else:
-                # There is an existing user. We don't want to register users twice
-                # Return a message to the user telling them that they they already exist
-                response = {
-                    'message': 'User exists. Login'
-                }
-
-                return make_response(jsonify(response)), 202
-
-        except Exception as x:
-            return make_response(jsonify({"message": "use appropriate values for username and fullname"})), 500
+            # return user registered successfully message
+            return make_response(jsonify(response)), 201
 
 
 # class to handle user login and token generation

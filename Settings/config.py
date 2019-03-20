@@ -11,7 +11,7 @@ class DevelopmentConfig(Config):
     DEVELOPMENT=True
     USER_SECRET_KEY='its nolonger a secret'
     ADMIN_SECRET_KEY='secret'
-    SQLALCHEMY_DATABASE_URI='sqlite:///site.db'
+    SQLALCHEMY_DATABASE_URI='sqlite:///dev.db'
     SQLALCHEMY_TRACK_MODIFICATIONS=False 
     
 class TestingConfig(Config):
@@ -23,8 +23,6 @@ class TestingConfig(Config):
     ADMIN_SECRET_KEY='secret'
     SQLALCHEMY_DATABASE_URI='sqlite:///test.db'
 
-
- 
 
 app_config={
     'development': DevelopmentConfig,
