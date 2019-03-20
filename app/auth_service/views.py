@@ -9,7 +9,7 @@ from app.auth_service.tokens import jwt_required
 #  class to register new user
 #Creating Class based views for Registration, Login and Logout as well as The Token
 class RegistrationView(MethodView):
-    @swag_from('apidocs/register_user.yaml', methods=['POST'])
+    @swag_from('swagger_docs/register_user.yaml', methods=['POST'])
     def post(self):
         try:
             request_data = request.get_json(force=True)
