@@ -2,7 +2,7 @@ import jwt
 import datetime
 from flasgger import Swagger, swag_from
 from flask_sqlalchemy import SQLAlchemy
-from Config.config import app_config
+from Settings.config import app_config
 from flask import Flask, request, jsonify, make_response, redirect
 
 db = SQLAlchemy()
@@ -32,7 +32,7 @@ def create_app(config_name):
             },
         ],
 
-        'specs_route': '/apidocs/'
+        'specs_route': '/swagger_docs/'
     }
 
     
@@ -41,9 +41,9 @@ def create_app(config_name):
 
     @app.route('/')
     def index():
-        return redirect('/apidocs/')
+        return redirect('/swagger_docs/')
 
-    from app.auth_service.views import view 
-    app.register_blueprint(view)
+    from .auth_service import auth_blueprint    
+    app.register_blueprint(auth_blueprint)
 
     return app
