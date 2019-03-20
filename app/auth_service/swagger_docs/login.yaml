@@ -31,13 +31,13 @@ definitions:
   user_login:
     type: "object"
     required:
-      - "username"
-      - "password"
+      - "Username"
+      - "Password"
     properties:
-      username:
+      Username:
         type: "string"
         example: "jane"
-      password:
+      Password:
         type: "string"
         format: "password"
         example: "pass6"

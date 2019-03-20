@@ -30,7 +30,7 @@ def create_app(config_name):
         },
 
         'schemes': [
-            'https'
+            'http'
         ],
 
         'tags': [
