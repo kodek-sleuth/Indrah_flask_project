@@ -2,12 +2,15 @@ import json
 import test_setup
 
 class User_Resgister_Login_TestCase(test_setup.AuthTest):
+    
+    #Testing if a user Can Register
     def test_Register_route(self):
         res=self.client().post('/auth/register', data=json.dumps(self.userRegDetails), content_type='application/json')
         result=json.loads(res.data.decode())
         self.assertEqual(result["Message"], "You have successfully Created a User account")
         self.assertEqual(res.status, '201 CREATED')
     
+    #Testing If a user can Login
     def test_Login_route(self):
         #Making That a user that Registers successfully gets Logged in and gets Token
         request_Reg=self.client().post('/auth/register', data=json.dumps(self.userRegDetails), content_type='application/json')

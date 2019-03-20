@@ -1,3 +1,4 @@
+#Ceating The User Model
 
 from flask import current_app
 from app import *
@@ -27,36 +28,3 @@ class User(db.Model):
         }
         
         return json.dumps(userObject)
-
-
-
-class BlackListToken(db.Model):
-    """Class to blacklist expired tokens
-    """
-    __tablename__ = 'blacklist_tokens'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    token = db.Column(db.String(500), unique=True, nullable=False)
-    blacklisted_on = db.Column(
-        db.DateTime, default=db.func.current_timestamp())
-
-    def __init__(self, token):
-        self.token = token
-
-    def save(self):
-        """function to save expired token
-        """
-        db.session.add(self)
-        db.session.commit()
-
-    def check_blacklist(auth_token):
-        """function to check if token is blacklisted
-        """
-        # check whether token has been blacklisted
-        res = BlackListToken.query.filter_by(token=str(auth_token)).first()
-        if res:
-            return True
-        else:
-            return False
-
-    def __repr__(self):
-        return '<id: token: {}'.format(self.token)

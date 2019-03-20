@@ -1,3 +1,9 @@
+#This file is going to house all our application Imports and Instances
+#We set up the Config file for Swagger and SQLAlchemy
+#We the create_app function which takes in the Configuration of the file at a given time
+#We make the app to redirect to swagger_docs and in so doing this every YAML file under the swagger_docs folder will be displayed
+
+
 import jwt
 import datetime
 from flasgger import Swagger, swag_from
@@ -10,6 +16,8 @@ db = SQLAlchemy()
 def create_app(config_name):
     app=Flask(__name__)
     app.config.from_object(app_config[config_name])
+    
+    #Our Swagger Introduction and Initialisation
     app.config['SWAGGER'] = {
         'swagger': '2.0',
         'title': 'Just  A simple App',
@@ -40,10 +48,13 @@ def create_app(config_name):
     swagger=Swagger(app)
 
     
+    #Route To Redirect Automatically to Our Swagger_Docs we created
     @app.route('/')
     def index():
         return redirect('/swagger_docs/')
 
+
+    #We import the auth Blueprint and then Register It
     from .auth_service import auth_blueprint    
     app.register_blueprint(auth_blueprint)
 

@@ -1,3 +1,8 @@
+#This file shows how the token is fetched
+#The function below means that jwt_required function checks for a token in query string or headers and verifies it 
+#Further proving the function jwt.docode
+
+
 from app import *
 from functools import wraps
 from flask import current_app
