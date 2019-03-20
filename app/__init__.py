@@ -39,6 +39,7 @@ def create_app(config_name):
     db.init_app(app)
     swagger=Swagger(app)
 
+    
     @app.route('/')
     def index():
         return redirect('/swagger_docs/')
