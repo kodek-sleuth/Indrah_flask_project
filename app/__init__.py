@@ -9,6 +9,7 @@ import datetime
 from flasgger import Swagger, swag_from
 from flask_sqlalchemy import SQLAlchemy
 from Settings.config import app_config
+from flask_cors import CORS
 from flask import Flask, request, jsonify, make_response, redirect
 
 db = SQLAlchemy()
@@ -46,7 +47,7 @@ def create_app(config_name):
     
     db.init_app(app)
     swagger=Swagger(app)
-
+    CORS(app)
     
     #Route To Redirect Automatically to Our Swagger_Docs we created
     @app.route('/')
