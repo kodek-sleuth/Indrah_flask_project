@@ -26,7 +26,7 @@ class RegistrationView(MethodView):
                 #Checking if User exists in db, if so then...
                 user=User.query.filter(Username=username).first()
                 if user.Username==username:
-                    response = Response(Success=False, Error="An account already exists with that Username", response_code=401)
+                    response = Response(Success=False, Error="An account already exists with that Username", response_code=202)
                     return response.flask_response()
 
             except:

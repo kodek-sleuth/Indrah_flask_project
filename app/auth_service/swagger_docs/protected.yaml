@@ -8,7 +8,7 @@ parameters:
   - name: "token"
     in: "query"
     required: true
-    description: "The Json Token To make sure user has valid"
+    description: "The Json Token To make sure User has valid Credentials to this Route"
     type: "string"
 responses:
   200:

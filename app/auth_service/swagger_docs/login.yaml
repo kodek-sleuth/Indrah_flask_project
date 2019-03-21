@@ -11,18 +11,14 @@ parameters:
   - name: "body"
     in: "body"
     required: true
-    description: "The login details of the user"
+    description: "The login details of the User"
     schema:
       $ref: "#/definitions/user_login"
 responses:
   200:
-    description: "You logged in successfully."
+    description: "You have Successfully Logged In"
     schema:
       $ref: "#/definitions/login_successful"
-  400:
-    description: "The data you sent was in the wrong format"
-    schema:
-      $ref: "#/definitions/invalid_data"
   401:
     description: "Invalid username or password"
     schema:
@@ -41,24 +37,18 @@ definitions:
         type: "string"
         format: "password"
         example: "pass6"
-  invalid_data:
-    type: "object"
-    properties:
-      message:
-        type: "string"
-        default: "The data you sent was in the wrong format"
   login_successful:
     type: "object"
     properties:
-      message:
+      Message:
         type: "string"
-        default: "Login successful"
-      access_token:
+        default: "You have Successfully Logged In"
+      Access_Token:
         type: "string"
         example: "auth-$token`-success-"
-  invalid_login:
+  Invalid_login:
     type: "object"
     properties:
-      message:
+      Message:
         type: "string"
         default: "Invalid username or password"

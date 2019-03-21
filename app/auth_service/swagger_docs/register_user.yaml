@@ -12,21 +12,17 @@ parameters:
       $ref: "#/definitions/user_register"
 responses:
   201:
-    description: "User registered successfully"
+    description: "You have Successfully Created a User account"
     schema:
       $ref: "#/definitions/registration_success"
-  400:
-    description: "Bad request or Wrong data format"
-    schema:
-      $ref: "#/definitions/invalid_data"
   202:
-    description: "User already exists"
+    description: An account already exists with that Username"
     schema:
       $ref: "#/definitions/existing_user"
-  500:
-    description: "internal server error"
+  401:
+    description: "Invalid Credentials"
     schema:
-      $ref: "#/definitions/server_error"
+      $ref: "#/definitions/Invalid_credentials"
 definitions:
   user_register:
     type: "object"
@@ -41,27 +37,21 @@ definitions:
         type: "string"
         format: "password"
         example: "pass6"
-  invalid_data:
+  Registration_Success:
     type: "object"
     properties:
-      message:
+      Message:
         type: "string"
-        default: "The data sent is in the wrong structure/format"
-  registration_success:
+        default: "You have Successfully Created a User account"
+  Existing_User:
     type: "object"
     properties:
-      message:
-        type: "string"
-        default: "User registered successfully"
-  existing_user:
-    type: "object"
-    properties:
-      message:
+      Message:
         type: "string"
         default: "User already exists. Please login"
-  server_error:
+  Invalid_credentials:
     type: "object"
     properties:
-      message:
+      Message:
         type: "string"
-        default: "Internal Server Error"
+        default: "Invalid Credentials"
