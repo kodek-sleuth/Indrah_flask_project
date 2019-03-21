@@ -25,10 +25,10 @@ class RegistrationView(MethodView):
                 #Checking if User exists in db, if so then...
                 user=User.query.filter(Username=username).first()
                 if user.Username==username:
-                    response={
+                    data={
                         "Message":"An account already exists with that Username"
                     }
-                    return make_response(jsonify(response)), 409
+                    return make_response(jsonify(data)), 409
 
             except:
                 if '~!@#$%&*():;+=-/' in username:
@@ -40,16 +40,16 @@ class RegistrationView(MethodView):
 
                 else:
                     userReg=User.addUser(username, password)
-                    response={
+                    data={
                         "Message":"You have successfully Created a User account"
                     }
-                    return make_response(jsonify(response)), 201
+                    return make_response(jsonify(data)), 201
     
         except:
-            response={
+            data={
                 "Message":"Please Enter valid Credentials"
             }
-            return make_response(jsonify(response)), 409
+            return make_response(jsonify(data)), 409
 
 
 # class to handle user login and token generation
@@ -69,18 +69,18 @@ class LoginView(MethodView):
             
 
             #Returning A success Message and The Token
-            response={
+            data={
                 "Message":"You have successfully Logged In",
                 "Access_Token": token.decode('utf-8')
             }
             
-            return make_response(jsonify(response)), 201
+            return make_response(jsonify(data)), 201
         
         elif user.password!=request_data["password"]:
-            response={
+            data={
                 "Message":"Invalid Password"
             }
-            return make_response(jsonify(response)), 401
+            return make_response(jsonify(data)), 401
 
 
 #The Protected Route To test if The JWT token Works also documented
@@ -90,10 +90,10 @@ class Protected(MethodView):
     
     @swag_from('swagger_docs/protected.yaml', methods=['GET'])
     def get(self):
-        response = {
+        data={
             "Message": "Only Protected"
         }
-        return make_response(jsonify(response)), 200
+        return make_response(jsonify(data)), 200
 
 #Turning Our Classes to Functions
 registration_view = RegistrationView.as_view('registration_view')
