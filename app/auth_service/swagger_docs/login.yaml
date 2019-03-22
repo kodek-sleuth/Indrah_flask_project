@@ -18,11 +18,11 @@ responses:
   200:
     description: "You have Successfully Logged In"
     schema:
-      $ref: "#/definitions/login_successful"
+      $ref: "#/definitions/Login_Successful"
   401:
-    description: "Invalid username or password"
+    description: "Invalid Password or Username"
     schema:
-      $ref: "#/definitions/invalid_login"
+      $ref: "#/definitions/Invalid_login"
 definitions:
   user_login:
     type: "object"
@@ -37,18 +37,37 @@ definitions:
         type: "string"
         format: "password"
         example: "pass6"
-  login_successful:
+  Login_Successful:
     type: "object"
     properties:
-      Message:
+      Success:
         type: "string"
-        default: "You have Successfully Logged In"
-      Access_Token:
+        example: "True"
+      Error:
         type: "string"
-        example: "auth-$token`-success-"
+        example: "null"
+      Data:
+        type: "object"
+        properties:
+          Message:
+            type: "string"
+            example: "You have Successfully Logged In"
+          Access_Token: 
+            type: "string"
+            example: "ad530efab77bdf87880b7c41daecc9d845dcc0633c08cc01f359031e469a6afc"
   Invalid_login:
     type: "object"
     properties:
+      Success:
+        type: "string"
+        example: "False"
+      Error:
+        type: "string"
+        example: "Invalid Password or Username"
+      Data:
+        type: "string"
+        example: "Null"
       Message:
         type: "string"
-        default: "Invalid username or password"
+        example: "Null"
+
